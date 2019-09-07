@@ -28,7 +28,21 @@ namespace EveryThingTest.InstanceClass
         }
         public override void Start()
         {
-            Console.WriteLine("It'Start");
+            NullAbleModel nullAbleModel = new NullAbleModel();
+            if (nullAbleModel.model?.num==0)
+            {
+
+            }
         }
+    }
+    public class NullAbleModel
+    {
+        public NullAbleModel2 model { get; set; }
+
+    }
+    public class NullAbleModel2
+    {
+        public int? num;
+
     }
 }
