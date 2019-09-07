@@ -11,7 +11,8 @@ namespace EveryThingTest
     {
         static void Main(string[] args)
         {
-            FirstTest.Instance.Begin();
+            //FirstTest.Instance.Begin();
+            NullAbleTest.Instance.Begin();
         }
     }
 }
