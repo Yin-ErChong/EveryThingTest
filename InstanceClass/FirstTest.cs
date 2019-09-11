@@ -29,5 +29,9 @@ namespace EveryThingTest.InstanceClass
         {
             Console.WriteLine("It'Start");
         }
+        public override void End()
+        {
+            Console.WriteLine("It'End");
+        }
     }
 }
