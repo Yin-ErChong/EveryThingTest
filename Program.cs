@@ -13,7 +13,8 @@ namespace EveryThingTest
         {
             //FirstTest.Instance.Begin();
             //NullAbleTest.Instance.Begin();
-            ShuiYouTest.Instance.Begin();
+            //ShuiYouTest.Instance.Begin();
+            TCPTest.Instance.Begin();
         }
     }
 }
