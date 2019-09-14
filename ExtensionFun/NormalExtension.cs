@@ -25,5 +25,6 @@ namespace EveryThingTest.ExtensionFun
             }
             return nullObject.Value;
         }
+
     }
 }
