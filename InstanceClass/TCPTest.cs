@@ -1,4 +1,5 @@
 ﻿using EveryThingTest.BaseClass;
+using EveryThingTest.ExtensionFun;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -52,42 +53,7 @@ namespace EveryThingTest.InstanceClass
             TcpClient tcpClient = listener.AcceptTcpClient();
 
             NetworkStream streamToClient = tcpClient.GetStream();
-            int BufferSize = int.MaxValue;
-            byte[] buffer = new byte[BufferSize];  // BufferSize为缓存的大小
-            int bytesRead;
-            try
-            {
-                lock (streamToClient)//为了保证数据的完整性以及安全性  锁定数据流
-                {
-                    bytesRead = streamToClient.Read(buffer, 0, BufferSize);
-                }
-                //string reciveMsg = Encoding.Unicode.GetString(bytesRead);
-                string str;
-                using (streamToClient)
-                {
-                    byte[] data = new byte[1024];
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-
-                        int numBytesRead;
-                        while ((numBytesRead = streamToClient.Read(data, 0, data.Length)) > 0)
-                        {
-                            ms.Write(data, 0, numBytesRead);
-                        }
-                        str = Encoding.ASCII.GetString(ms.ToArray(), 0, (int)ms.Length);
-                    }
-                }
-                string msg = "俏丽吗";
-                byte[] buffer2 = Encoding.Unicode.GetBytes(msg);
-                lock (streamToClient)
-                {
-                    streamToClient.Write(buffer2, 0, buffer.Length);//buffer为发送的字符数组                   
-                }
-            }
-            catch (Exception ee)
-            {
-
-            }
+            string recieveMsg = streamToClient.ReadStringFromStream();
         }
 
         public void Send()
