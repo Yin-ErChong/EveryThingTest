@@ -38,7 +38,25 @@ namespace EveryThingTest.InstanceClass
                 //连接多个客户端  https://www.cnblogs.com/longdb/articles/7015827.html
                 listen();
             });
-            Thread.Sleep(20000);
+            Task.Run(() =>
+            {
+                Thread.Sleep(2000);
+                //连接多个客户端  https://www.cnblogs.com/longdb/articles/7015827.html
+                TcpClient client = new TcpClient();
+                //连接服务器
+                client.Connect("127.0.0.1", 9365);
+                NetworkStream ns = client.GetStream();
+                using (ns)
+                {
+                    var br = new BinaryReader(ns);
+                    var bw = new BinaryWriter(ns);
+                    bw.Write("qiaolioma");
+                    bw.Flush();
+                }
+
+                Thread.Sleep(2000);
+            });
+            Thread.Sleep(200000);
         }
         public override void End()
         {
@@ -50,13 +68,16 @@ namespace EveryThingTest.InstanceClass
             int port = 9365;
             TcpListener listener = new TcpListener(new IPEndPoint(IPAddress.Parse(ip), port));
             listener.Start();
-            TcpClient tcpClient = listener.AcceptTcpClient();
-
-            NetworkStream streamToClient = tcpClient.GetStream();
-            string recieveMsg = streamToClient.ReadStringFromStream();
+            while (true)
+            {
+                TcpClient tcpClient = listener.AcceptTcpClient();
+                NetworkStream streamToClient = tcpClient.GetStream();
+                var recieveMsg = streamToClient.ReadStringFromStream();
+                Console.WriteLine(recieveMsg);
+            }
         }
 
-        public void Send()
+        public void Send(string msg)
         {
 
 

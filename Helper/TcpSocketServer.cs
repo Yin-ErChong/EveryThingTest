@@ -1,587 +1,255 @@
-﻿//using System;
-//using System.Collections.Concurrent;
-//using System.IO;
-//using System.Net;
-//using System.Net.Sockets;
-//using Logrila.Logging;
-
-//namespace Cowboy.Sockets
-//{
-//    public class TcpSocketServer
-//    {
-//        #region Fields
-
-//        private static readonly ILog _log = Logger.Get<TcpSocketServer>();
-//        private TcpListener _listener;
-//        private readonly ConcurrentDictionary<string, TcpSocketSession> _sessions = new ConcurrentDictionary<string, TcpSocketSession>();
-//        private readonly TcpSocketServerConfiguration _configuration;
-//        private readonly object _opsLock = new object();
-//        private bool _isListening = false;
-
-//        #endregion
-
-//        #region Constructors
-
-//        public TcpSocketServer(int listenedPort, TcpSocketServerConfiguration configuration = null)
-//            : this(IPAddress.Any, listenedPort, configuration)
-//        {
-//        }
-
-//        public TcpSocketServer(IPAddress listenedAddress, int listenedPort, TcpSocketServerConfiguration configuration = null)
-//            : this(new IPEndPoint(listenedAddress, listenedPort), configuration)
-//        {
-//        }
-
-//        public TcpSocketServer(IPEndPoint listenedEndPoint, TcpSocketServerConfiguration configuration = null)
-//        {
-//            if (listenedEndPoint == null)
-//                throw new ArgumentNullException("listenedEndPoint");
-
-//            this.ListenedEndPoint = listenedEndPoint;
-//            _configuration = configuration ?? new TcpSocketServerConfiguration();
-
-//            if (_configuration.BufferManager == null)
-//                throw new InvalidProgramException("The buffer manager in configuration cannot be null.");
-//            if (_configuration.FrameBuilder == null)
-//                throw new InvalidProgramException("The frame handler in configuration cannot be null.");
-//        }
-
-//        #endregion
-
-//        #region Properties
-
-//        public IPEndPoint ListenedEndPoint { get; private set; }
-//        public bool IsListening { get { return _isListening; } }
-//        public int SessionCount { get { return _sessions.Count; } }
-
-//        #endregion
-
-//        #region Server
-
-//        public void Listen()
-//        {
-//            lock (_opsLock)
-//            {
-//                if (_isListening)
-//                    return;
-
-//                _listener = new TcpListener(this.ListenedEndPoint);
-//                SetSocketOptions();
-
-//                _isListening = true;
-//                _listener.Start(_configuration.PendingConnectionBacklog);
-
-//                ContinueAcceptSession(_listener);
-//            }
-//        }
-
-//        public void Shutdown()
-//        {
-//            lock (_opsLock)
-//            {
-//                if (!_isListening)
-//                    return;
-
-//                try
-//                {
-//                    _isListening = false;
-//                    _listener.Stop();
-
-//                    foreach (var session in _sessions.Values)
-//                    {
-//                        CloseSession(session); // server shutdown
-//                    }
-//                    _sessions.Clear();
-//                    _listener = null;
-//                }
-//                catch (Exception ex)
-//                {
-//                    if (!ShouldThrow(ex))
-//                    {
-//                        _log.Error(ex.Message, ex);
-//                    }
-//                    else throw;
-//                }
-//            }
-//        }
-
-//        public bool Pending()
-//        {
-//            lock (_opsLock)
-//            {
-//                if (!_isListening)
-//                    throw new InvalidOperationException("The server is not listening.");
-
-//                // determine if there are pending connection requests.
-//                return _listener.Pending();
-//            }
-//        }
-
-//        private void SetSocketOptions()
-//        {
-//            _listener.AllowNatTraversal(_configuration.AllowNatTraversal);
-//            _listener.Server.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, _configuration.ReuseAddress);
-//        }
-
-//        private void ContinueAcceptSession(TcpListener listener)
-//        {
-//            try
-//            {
-//                listener.BeginAcceptTcpClient(new AsyncCallback(HandleTcpClientAccepted), listener);
-//            }
-//            catch (Exception ex)
-//            {
-//                if (!ShouldThrow(ex))
-//                {
-//                    _log.Error(ex.Message, ex);
-//                }
-//                else throw;
-//            }
-//        }
-
-//        private void HandleTcpClientAccepted(IAsyncResult ar)
-//        {
-//            if (!_isListening)
-//                return;
-
-//            try
-//            {
-//                TcpListener listener = (TcpListener)ar.AsyncState;
-
-//                TcpClient tcpClient = listener.EndAcceptTcpClient(ar);
-//                if (!tcpClient.Connected)
-//                    return;
-
-//                var session = new TcpSocketSession(tcpClient, _configuration, _configuration.BufferManager, this);
-//                bool isSessionStarted = false;
-//                try
-//                {
-//                    _sessions.AddOrUpdate(session.SessionKey, session, (n, o) => { return o; });
-//                    session.Start();
-//                    isSessionStarted = true;
-//                }
-//                catch (Exception ex)
-//                {
-//                    _log.Error(ex.Message, ex);
-//                }
-
-//                if (isSessionStarted)
-//                {
-//                    ContinueAcceptSession(listener);
-//                }
-//                else
-//                {
-//                    CloseSession(session); // session was not started
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                if (!ShouldThrow(ex))
-//                {
-//                    _log.Error(ex.Message, ex);
-//                }
-//                else throw;
-//            }
-//        }
-
-//        private void CloseSession(TcpSocketSession session)
-//        {
-//            TcpSocketSession sessionToBeThrowAway;
-//            _sessions.TryRemove(session.SessionKey, out sessionToBeThrowAway);
-
-//            if (session != null)
-//            {
-//                session.Close(); // parent server close session
-//            }
-//        }
-
-//        private bool ShouldThrow(Exception ex)
-//        {
-//            if (ex is ObjectDisposedException
-//                || ex is InvalidOperationException
-//                || ex is SocketException
-//                || ex is IOException)
-//            {
-//                return false;
-//            }
-//            return false;
-//        }
-
-//        #endregion
-
-//        #region Send
-
-//        private void GuardRunning()
-//        {
-//            if (!_isListening)
-//                throw new InvalidProgramException("This tcp server has not been started yet.");
-//        }
-
-//        public void SendTo(string sessionKey, byte[] data)
-//        {
-//            GuardRunning();
-
-//            if (string.IsNullOrEmpty(sessionKey))
-//                throw new ArgumentNullException("sessionKey");
-
-//            if (data == null)
-//                throw new ArgumentNullException("data");
-
-//            SendTo(sessionKey, data, 0, data.Length);
-//        }
-
-//        public void SendTo(string sessionKey, byte[] data, int offset, int count)
-//        {
-//            GuardRunning();
-
-//            if (string.IsNullOrEmpty(sessionKey))
-//                throw new ArgumentNullException("sessionKey");
-
-//            if (data == null)
-//                throw new ArgumentNullException("data");
-
-//            TcpSocketSession session = null;
-//            if (_sessions.TryGetValue(sessionKey, out session))
-//            {
-//                session.Send(data, offset, count);
-//            }
-//            else
-//            {
-//                _log.WarnFormat("Cannot find session [{0}].", sessionKey);
-//            }
-//        }
-
-//        public void SendTo(TcpSocketSession session, byte[] data)
-//        {
-//            GuardRunning();
-
-//            if (session == null)
-//                throw new ArgumentNullException("session");
-
-//            if (data == null)
-//                throw new ArgumentNullException("data");
-
-//            SendTo(session, data, 0, data.Length);
-//        }
-
-//        public void SendTo(TcpSocketSession session, byte[] data, int offset, int count)
-//        {
-//            GuardRunning();
-
-//            if (session == null)
-//                throw new ArgumentNullException("session");
-
-//            if (data == null)
-//                throw new ArgumentNullException("data");
-
-//            TcpSocketSession writeSession = null;
-//            if (_sessions.TryGetValue(session.SessionKey, out writeSession))
-//            {
-//                session.Send(data, offset, count);
-//            }
-//            else
-//            {
-//                _log.WarnFormat("Cannot find session [{0}].", session);
-//            }
-//        }
-
-//        public void BeginSendTo(string sessionKey, byte[] data)
-//        {
-//            GuardRunning();
-
-//            if (string.IsNullOrEmpty(sessionKey))
-//                throw new ArgumentNullException("sessionKey");
-
-//            if (data == null)
-//                throw new ArgumentNullException("data");
-
-//            BeginSendTo(sessionKey, data, 0, data.Length);
-//        }
-
-//        public void BeginSendTo(string sessionKey, byte[] data, int offset, int count)
-//        {
-//            GuardRunning();
-
-//            if (string.IsNullOrEmpty(sessionKey))
-//                throw new ArgumentNullException("sessionKey");
-
-//            if (data == null)
-//                throw new ArgumentNullException("data");
-
-//            TcpSocketSession session = null;
-//            if (_sessions.TryGetValue(sessionKey, out session))
-//            {
-//                session.BeginSend(data, offset, count);
-//            }
-//            else
-//            {
-//                _log.WarnFormat("Cannot find session [{0}].", sessionKey);
-//            }
-//        }
-
-//        public void BeginSendTo(TcpSocketSession session, byte[] data)
-//        {
-//            GuardRunning();
-
-//            if (session == null)
-//                throw new ArgumentNullException("session");
-
-//            if (data == null)
-//                throw new ArgumentNullException("data");
-
-//            BeginSendTo(session, data, 0, data.Length);
-//        }
-
-//        public void BeginSendTo(TcpSocketSession session, byte[] data, int offset, int count)
-//        {
-//            GuardRunning();
-
-//            if (session == null)
-//                throw new ArgumentNullException("session");
-
-//            if (data == null)
-//                throw new ArgumentNullException("data");
-
-//            TcpSocketSession writeSession = null;
-//            if (_sessions.TryGetValue(session.SessionKey, out writeSession))
-//            {
-//                session.BeginSend(data, offset, count);
-//            }
-//            else
-//            {
-//                _log.WarnFormat("Cannot find session [{0}].", session);
-//            }
-//        }
-
-//        public IAsyncResult BeginSendTo(string sessionKey, byte[] data, AsyncCallback callback, object state)
-//        {
-//            if (data == null)
-//                throw new ArgumentNullException("data");
-
-//            return BeginSendTo(sessionKey, data, 0, data.Length, callback, state);
-//        }
-
-//        public IAsyncResult BeginSendTo(string sessionKey, byte[] data, int offset, int count, AsyncCallback callback, object state)
-//        {
-//            GuardRunning();
-
-//            if (string.IsNullOrEmpty(sessionKey))
-//                throw new ArgumentNullException("sessionKey");
-
-//            if (data == null)
-//                throw new ArgumentNullException("data");
-
-//            TcpSocketSession session = null;
-//            if (_sessions.TryGetValue(sessionKey, out session))
-//            {
-//                return session.BeginSend(data, offset, count, callback, state);
-//            }
-//            else
-//            {
-//                _log.WarnFormat("Cannot find session [{0}].", sessionKey);
-//            }
-
-//            return null;
-//        }
-
-//        public IAsyncResult BeginSendTo(TcpSocketSession session, byte[] data, AsyncCallback callback, object state)
-//        {
-//            GuardRunning();
-
-//            if (session == null)
-//                throw new ArgumentNullException("session");
-
-//            if (data == null)
-//                throw new ArgumentNullException("data");
-
-//            return BeginSendTo(session, data, 0, data.Length, callback, state);
-//        }
-
-//        public IAsyncResult BeginSendTo(TcpSocketSession session, byte[] data, int offset, int count, AsyncCallback callback, object state)
-//        {
-//            GuardRunning();
-
-//            if (session == null)
-//                throw new ArgumentNullException("session");
-
-//            if (data == null)
-//                throw new ArgumentNullException("data");
-
-//            TcpSocketSession writeSession = null;
-//            if (_sessions.TryGetValue(session.SessionKey, out writeSession))
-//            {
-//                return session.BeginSend(data, offset, count, callback, state);
-//            }
-//            else
-//            {
-//                _log.WarnFormat("Cannot find session [{0}].", session);
-//            }
-
-//            return null;
-//        }
-
-//        public void EndSendTo(string sessionKey, IAsyncResult asyncResult)
-//        {
-//            GuardRunning();
-
-//            if (string.IsNullOrEmpty(sessionKey))
-//                throw new ArgumentNullException("sessionKey");
-
-//            TcpSocketSession session = null;
-//            if (_sessions.TryGetValue(sessionKey, out session))
-//            {
-//                session.EndSend(asyncResult);
-//            }
-//        }
-
-//        public void EndSendTo(TcpSocketSession session, IAsyncResult asyncResult)
-//        {
-//            GuardRunning();
-
-//            if (session == null)
-//                throw new ArgumentNullException("session");
-
-//            TcpSocketSession writeSession = null;
-//            if (_sessions.TryGetValue(session.SessionKey, out writeSession))
-//            {
-//                session.EndSend(asyncResult);
-//            }
-//        }
-
-//        public void Broadcast(byte[] data)
-//        {
-//            GuardRunning();
-
-//            if (data == null)
-//                throw new ArgumentNullException("data");
-
-//            Broadcast(data, 0, data.Length);
-//        }
-
-//        public void Broadcast(byte[] data, int offset, int count)
-//        {
-//            GuardRunning();
-
-//            if (data == null)
-//                throw new ArgumentNullException("data");
-
-//            foreach (var session in _sessions.Values)
-//            {
-//                session.Send(data, offset, count);
-//            }
-//        }
-
-//        public void BeginBroadcast(byte[] data)
-//        {
-//            GuardRunning();
-
-//            if (data == null)
-//                throw new ArgumentNullException("data");
-
-//            BeginBroadcast(data, 0, data.Length);
-//        }
-
-//        public void BeginBroadcast(byte[] data, int offset, int count)
-//        {
-//            GuardRunning();
-
-//            if (data == null)
-//                throw new ArgumentNullException("data");
-
-//            foreach (var session in _sessions.Values)
-//            {
-//                session.BeginSend(data, offset, count);
-//            }
-//        }
-
-//        #endregion
-
-//        #region Session
-
-//        public bool HasSession(string sessionKey)
-//        {
-//            return _sessions.ContainsKey(sessionKey);
-//        }
-
-//        public TcpSocketSession GetSession(string sessionKey)
-//        {
-//            TcpSocketSession session = null;
-//            _sessions.TryGetValue(sessionKey, out session);
-//            return session;
-//        }
-
-//        public void CloseSession(string sessionKey)
-//        {
-//            TcpSocketSession session = null;
-//            if (_sessions.TryGetValue(sessionKey, out session))
-//            {
-//                session.Close(); // parent server close session by session-key
-//            }
-//        }
-
-//        #endregion
-
-//        #region Events
-
-//        public event EventHandler<TcpClientConnectedEventArgs> ClientConnected;
-//        public event EventHandler<TcpClientDisconnectedEventArgs> ClientDisconnected;
-//        public event EventHandler<TcpClientDataReceivedEventArgs> ClientDataReceived;
-
-//        internal void RaiseClientConnected(TcpSocketSession session)
-//        {
-//            try
-//            {
-//                if (ClientConnected != null)
-//                {
-//                    ClientConnected(this, new TcpClientConnectedEventArgs(session));
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                HandleUserSideError(session, ex);
-//            }
-//        }
-
-//        internal void RaiseClientDisconnected(TcpSocketSession session)
-//        {
-//            try
-//            {
-//                if (ClientDisconnected != null)
-//                {
-//                    ClientDisconnected(this, new TcpClientDisconnectedEventArgs(session));
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                HandleUserSideError(session, ex);
-//            }
-//            finally
-//            {
-//                TcpSocketSession sessionToBeThrowAway;
-//                _sessions.TryRemove(session.SessionKey, out sessionToBeThrowAway);
-//            }
-//        }
-
-//        internal void RaiseClientDataReceived(TcpSocketSession session, byte[] data, int dataOffset, int dataLength)
-//        {
-//            try
-//            {
-//                if (ClientDataReceived != null)
-//                {
-//                    ClientDataReceived(this, new TcpClientDataReceivedEventArgs(session, data, dataOffset, dataLength));
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                HandleUserSideError(session, ex);
-//            }
-//        }
-
-//        private void HandleUserSideError(TcpSocketSession session, Exception ex)
-//        {
-//            _log.Error(string.Format("Session [{0}] error occurred in user side [{1}].", session, ex.Message), ex);
-//        }
-
-//        #endregion
-//    }
-//}
+﻿/*
+ *
+ * 该类用于管理tcp连接通讯
+ * 
+ */
+
+using System;
+using System.Collections.Generic;
+using System.Net.Sockets;
+using System.Threading;
+using System.Net;
+
+namespace Communication
+{
+    /// <summary>
+    /// 服务端
+    /// </summary>
+    public class MyTcpServer
+    {
+
+        private Socket ServerSocket = null;//服务端  
+        public Dictionary<string, MySession> dic_ClientSocket = new Dictionary<string, MySession>();//tcp客户端字典
+        private Dictionary<string, Thread> dic_ClientThread = new Dictionary<string, Thread>();//线程字典,每新增一个连接就添加一条线程
+        private bool Flag_Listen = true;//监听客户端连接的标志
+
+        /// <summary>
+        /// 启动服务
+        /// </summary>
+        /// <param name="port">端口号</param>
+        public bool OpenServer(int port)
+        {
+            try
+            {
+                Flag_Listen = true;
+                // 创建负责监听的套接字，注意其中的参数；
+                ServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                // 创建包含ip和端口号的网络节点对象；
+                IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, port);
+                try
+                {
+                    // 将负责监听的套接字绑定到唯一的ip和端口上；
+                    ServerSocket.Bind(endPoint);
+                }
+                catch
+                {
+                    return false;
+                }
+                // 设置监听队列的长度；
+                ServerSocket.Listen(100);
+                // 创建负责监听的线程；
+                Thread Thread_ServerListen = new Thread(ListenConnecting);
+                Thread_ServerListen.IsBackground = true;
+                Thread_ServerListen.Start();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// 关闭服务
+        /// </summary>
+        public void CloseServer()
+        {
+            lock (dic_ClientSocket)
+            {
+                foreach (var item in dic_ClientSocket)
+                {
+                    item.Value.Close();//关闭每一个连接
+                }
+                dic_ClientSocket.Clear();//清除字典
+            }
+            lock (dic_ClientThread)
+            {
+                foreach (var item in dic_ClientThread)
+                {
+                    item.Value.Abort();//停止线程
+                }
+                dic_ClientThread.Clear();
+            }
+            Flag_Listen = false;
+            //ServerSocket.Shutdown(SocketShutdown.Both);//服务端不能主动关闭连接,需要把监听到的连接逐个关闭
+            if (ServerSocket != null)
+                ServerSocket.Close();
+
+        }
+        /// <summary>
+        /// 监听客户端请求的方法；
+        /// </summary>
+        private void ListenConnecting()
+        {
+            while (Flag_Listen)  // 持续不断的监听客户端的连接请求；
+            {
+                try
+                {
+                    Socket sokConnection = ServerSocket.Accept(); // 一旦监听到一个客户端的请求，就返回一个与该客户端通信的 套接字；
+                    // 将与客户端连接的 套接字 对象添加到集合中；
+                    string str_EndPoint = sokConnection.RemoteEndPoint.ToString();
+                    MySession myTcpClient = new MySession() { TcpSocket = sokConnection };
+                    //创建线程接收数据
+                    Thread th_ReceiveData = new Thread(ReceiveData);
+                    th_ReceiveData.IsBackground = true;
+                    th_ReceiveData.Start(myTcpClient);
+                    //把线程及客户连接加入字典
+                    dic_ClientThread.Add(str_EndPoint, th_ReceiveData);
+                    dic_ClientSocket.Add(str_EndPoint, myTcpClient);
+                }
+                catch
+                {
+
+                }
+                Thread.Sleep(200);
+            }
+        }
+        /// <summary>
+        /// 接收数据
+        /// </summary>
+        /// <param name="sokConnectionparn"></param>
+        private void ReceiveData(object sokConnectionparn)
+        {
+            MySession tcpClient = sokConnectionparn as MySession;
+            Socket socketClient = tcpClient.TcpSocket;
+            bool Flag_Receive = true;
+
+            while (Flag_Receive)
+            {
+                try
+                {
+                    // 定义一个2M的缓存区；
+                    byte[] arrMsgRec = new byte[1024 * 1024 * 2];
+                    // 将接受到的数据存入到输入  arrMsgRec中；
+                    int length = -1;
+                    try
+                    {
+                        length = socketClient.Receive(arrMsgRec); // 接收数据，并返回数据的长度；
+                    }
+                    catch
+                    {
+                        Flag_Receive = false;
+                        // 从通信线程集合中删除被中断连接的通信线程对象；
+                        string keystr = socketClient.RemoteEndPoint.ToString();
+                        dic_ClientSocket.Remove(keystr);//删除客户端字典中该socket
+                        dic_ClientThread[keystr].Abort();//关闭线程
+                        dic_ClientThread.Remove(keystr);//删除字典中该线程
+
+                        tcpClient = null;
+                        socketClient = null;
+                        break;
+                    }
+                    byte[] buf = new byte[length];
+                    Array.Copy(arrMsgRec, buf, length);
+                    lock (tcpClient.m_Buffer)
+                    {
+                        tcpClient.AddQueue(buf);
+                    }
+                }
+                catch
+                {
+
+                }
+                Thread.Sleep(100);
+            }
+        }
+        /// <summary>
+        /// 发送数据给指定的客户端
+        /// </summary>
+        /// <param name="_endPoint">客户端套接字</param>
+        /// <param name="_buf">发送的数组</param>
+        /// <returns></returns>
+        public bool SendData(string _endPoint, byte[] _buf)
+        {
+            MySession myT = new MySession();
+            if (dic_ClientSocket.TryGetValue(_endPoint, out myT))
+            {
+                myT.Send(_buf);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 会话端
+    /// </summary>
+    public class MySession
+    {
+        public Socket TcpSocket;//socket对象
+        public List<byte> m_Buffer = new List<byte>();//数据缓存区
+
+        public MySession()
+        {
+
+        }
+
+        /// <summary>
+        /// 发送数据
+        /// </summary>
+        /// <param name="buf"></param>
+        public void Send(byte[] buf)
+        {
+            if (buf != null)
+            {
+                TcpSocket.Send(buf);
+            }
+        }
+        /// <summary>
+        /// 获取连接的ip
+        /// </summary>
+        /// <returns></returns>
+        public string GetIp()
+        {
+            IPEndPoint clientipe = (IPEndPoint)TcpSocket.RemoteEndPoint;
+            string _ip = clientipe.Address.ToString();
+            return _ip;
+        }
+        /// <summary>
+        /// 关闭连接
+        /// </summary>
+        public void Close()
+        {
+            TcpSocket.Shutdown(SocketShutdown.Both);
+        }
+        /// <summary>
+        /// 提取正确数据包
+        /// </summary>
+        public byte[] GetBuffer(int startIndex, int size)
+        {
+            byte[] buf = new byte[size];
+            m_Buffer.CopyTo(startIndex, buf, 0, size);
+            m_Buffer.RemoveRange(0, startIndex + size);
+            return buf;
+        }
+
+        /// <summary>
+        /// 添加队列数据
+        /// </summary>
+        /// <param name="buffer"></param>
+        public void AddQueue(byte[] buffer)
+        {
+            m_Buffer.AddRange(buffer);
+        }
+        /// <summary>
+        /// 清除缓存
+        /// </summary>
+        public void ClearQueue()
+        {
+            m_Buffer.Clear();
+        }
+    }
+}

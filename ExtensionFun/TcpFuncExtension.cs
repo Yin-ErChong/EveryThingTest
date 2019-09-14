@@ -18,20 +18,19 @@ namespace EveryThingTest.ExtensionFun
                 byte[] data = new byte[1024];
                 using (MemoryStream ms = new MemoryStream())
                 {
-
                     int numBytesRead;
                     while ((numBytesRead = streamToClient.Read(data, 0, data.Length)) > 0)
                     {
                         ms.Write(data, 0, numBytesRead);
                     }
-                    str = Encoding.ASCII.GetString(ms.ToArray(), 0, (int)ms.Length);
+                    str = Encoding.UTF8.GetString(ms.ToArray(), 0, (int)ms.Length);
                 }
             }
             return str;
         }
         public static void WriteStringToStream(this NetworkStream streamToClient, string msg)
         {
-            byte[] buffer = Encoding.Unicode.GetBytes(msg);
+            byte[] buffer = Encoding.UTF8.GetBytes(msg);
             lock (streamToClient)
             {
                 streamToClient.Write(buffer, 0, buffer.Length);//buffer为发送的字符数组                   
