@@ -8,6 +8,9 @@ namespace EveryThingTest.Helper
 {
     class TcpSocketClient
     {
+        public void StartConnect()
+        {
 
+        }
     }
 }
