@@ -1,4 +1,5 @@
-﻿using EveryThingTest.BaseClass;
+﻿using Communication;
+using EveryThingTest.BaseClass;
 using EveryThingTest.ExtensionFun;
 using System;
 using System.Collections.Generic;
@@ -33,30 +34,9 @@ namespace EveryThingTest.InstanceClass
         }
         public override void Start()
         {
-            Task.Run(() =>
-            {
-                //连接多个客户端  https://www.cnblogs.com/longdb/articles/7015827.html
-                listen();
-            });
-            Task.Run(() =>
-            {
-                Thread.Sleep(2000);
-                //连接多个客户端  https://www.cnblogs.com/longdb/articles/7015827.html
-                TcpClient client = new TcpClient();
-                //连接服务器
-                client.Connect("127.0.0.1", 9365);
-                NetworkStream ns = client.GetStream();
-                using (ns)
-                {
-                    var br = new BinaryReader(ns);
-                    var bw = new BinaryWriter(ns);
-                    bw.Write("qiaolioma");
-                    bw.Flush();
-                }
-
-                Thread.Sleep(2000);
-            });
-            Thread.Sleep(200000);
+            
+            MyTcpServer server = new MyTcpServer();
+            server.OpenServer(9361);
         }
         public override void End()
         {
