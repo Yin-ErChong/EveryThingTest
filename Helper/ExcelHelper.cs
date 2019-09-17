@@ -134,6 +134,10 @@ namespace EveryThingTest.Helper
                             {
                                 cellValue = cell.StringCellValue;
                             }
+                            if (data.Columns.Contains(cellValue))
+                            {
+                                cellValue = cellValue + $"（重复{i}）";
+                            }
                             DataColumn column = new DataColumn(cellValue);
                             data.Columns.Add(column);
                         }

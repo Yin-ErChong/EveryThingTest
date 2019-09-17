@@ -31,6 +31,10 @@ namespace EveryThingTest.InstanceClass
         {
             ExcelHelper excel = new ExcelHelper(@"C:\Users\yinerchong\Desktop\薪资档案初始化模板_20190904 (7).xls");
             DataTable table=excel.ExcelToDataTable("深演薪资包(ipinyou)",true);
+            if (table==null)
+            {
+
+            }
             int 姓名 = table.Columns.IndexOf(table.Columns["邮箱a*"]);
         }
         public override void End()
