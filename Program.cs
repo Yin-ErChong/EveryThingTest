@@ -14,7 +14,8 @@ namespace EveryThingTest
             //FirstTest.Instance.Begin();
             //NullAbleTest.Instance.Begin();
             //ShuiYouTest.Instance.Begin();
-            TCPTest.Instance.Begin();
+            //TCPTest.Instance.Begin();
+            ExcelTest.Instance.Begin();
         }
     }
 }

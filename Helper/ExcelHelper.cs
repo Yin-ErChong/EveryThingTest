@@ -129,15 +129,13 @@ namespace EveryThingTest.Helper
                         for (int i = firstRow.FirstCellNum; i < cellCount; ++i)
                         {
                             ICell cell = firstRow.GetCell(i);
+                            string cellValue = string.Empty;
                             if (cell != null)
                             {
-                                string cellValue = cell.StringCellValue;
-                                if (!string.IsNullOrEmpty(cellValue))
-                                {
-                                    DataColumn column = new DataColumn(cellValue);
-                                    data.Columns.Add(column);
-                                }
+                                cellValue = cell.StringCellValue;
                             }
+                            DataColumn column = new DataColumn(cellValue);
+                            data.Columns.Add(column);
                         }
                         startRow = sheet.FirstRowNum + 1;
                     }

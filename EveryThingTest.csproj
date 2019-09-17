@@ -66,6 +66,7 @@
     <Compile Include="ExtensionFun\TcpFuncExtension.cs" />
     <Compile Include="Helper\ExcelHelper.cs" />
     <Compile Include="Helper\TcpSocketServer.cs" />
+    <Compile Include="InstanceClass\ExcelTest.cs" />
     <Compile Include="InstanceClass\TCPTest.cs" />
     <Compile Include="InstanceClass\FirstTest.cs" />
     <Compile Include="InstanceClass\ShuiYouTest.cs" />
