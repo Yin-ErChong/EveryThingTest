@@ -28,11 +28,9 @@ namespace EveryThingTest.InstanceClass
         }
         public override void Start()
         {
-            NullAbleModel nullAbleModel = new NullAbleModel();
-            int? nullable = null;
-            int notnull =2;
-            notnull = nullable.GetValueOrDefault();
 
+            List<NullAbleModel2> nullAbleModel2s = new List<NullAbleModel2>();
+            var a= nullAbleModel2s.Where(n => n.num == 2).ToList();
         }
     }
     public class NullAbleModel
@@ -42,7 +40,7 @@ namespace EveryThingTest.InstanceClass
     }
     public class NullAbleModel2
     {
-        public int? num;
+        public int num;
 
     }
     

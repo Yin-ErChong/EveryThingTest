@@ -23,7 +23,10 @@ namespace EveryThingTest.Helper
             this.fileName = fileName;
             disposed = false;
         }
-
+        public ExcelHelper()
+        {
+            disposed = false;
+        }
         /// <summary>
         /// 将DataTable数据导入到excel中
         /// </summary>
@@ -37,7 +40,10 @@ namespace EveryThingTest.Helper
             int j = 0;
             int count = 0;
             ISheet sheet = null;
+            if (true)
+            {
 
+            }
             fs = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
             if (fileName.IndexOf(".xlsx") > 0) // 2007版本
                 workbook = new XSSFWorkbook();

@@ -1,24 +1,23 @@
 ﻿using EveryThingTest.BaseClass;
-using EveryThingTest.Helper;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EveryThingTest.InstanceClass
 {
-    public class ExcelTest : TestBase, ITestBase
+
+    public class CommonTest : TestBase, ITestBase
     {
-        private static ExcelTest _Instance;
-        public static ExcelTest Instance
+        private static CommonTest _Instance;
+        public static CommonTest Instance
         {
             get
             {
                 if (_Instance == null)
                 {
-                    _Instance = new ExcelTest();
+                    _Instance = new CommonTest();
                 }
                 return _Instance;
             }
@@ -29,17 +28,14 @@ namespace EveryThingTest.InstanceClass
         }
         public override void Start()
         {
-            ExcelHelper excel = new ExcelHelper();
-            int table=excel.DataTableToExcel(new DataTable(),"深演薪资包(ipinyou)",true);
-            if (table==null)
-            {
+            DateTime time = DateTime.Now;
 
-            }
-           // int 姓名 = table.Columns.IndexOf(table.Columns["邮箱a*"]);
+            Console.WriteLine($"{time.ToString("yyyy/MM/d")}");
         }
         public override void End()
         {
             Console.WriteLine("It'End");
+            Console.ReadLine();
         }
     }
 }
