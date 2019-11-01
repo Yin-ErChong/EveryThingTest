@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseClass\PowerBase.cs" />
     <Compile Include="BaseClass\TestBase.cs" />
     <Compile Include="ExtensionFun\NormalExtension.cs" />
     <Compile Include="ExtensionFun\TcpFuncExtension.cs" />
@@ -68,7 +69,7 @@
     <Compile Include="Helper\TcpSocketServer.cs" />
     <Compile Include="InstanceClass\Asyn_AwaitTest.cs" />
     <Compile Include="InstanceClass\CommonTest.cs" />
-	<Compile Include="InstanceClass\BaiduTest.cs" />
+    <Compile Include="InstanceClass\BaiduTest.cs" />
     <Compile Include="InstanceClass\ExcelTest.cs" />
     <Compile Include="InstanceClass\TCPTest.cs" />
     <Compile Include="InstanceClass\FirstTest.cs" />
