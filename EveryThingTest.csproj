@@ -67,6 +67,7 @@
     <Compile Include="ExtensionFun\TcpFuncExtension.cs" />
     <Compile Include="Helper\ExcelHelper.cs" />
     <Compile Include="Helper\TcpSocketServer.cs" />
+    <Compile Include="Helper\TcpSocketService2.cs" />
     <Compile Include="InstanceClass\Asyn_AwaitTest.cs" />
     <Compile Include="InstanceClass\CommonTest.cs" />
     <Compile Include="InstanceClass\BaiduTest.cs" />
