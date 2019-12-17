@@ -18,8 +18,6 @@ namespace EveryThingTest.Helper
             //longlink();
         }
 
-
-
         /// <summary>
         /// 短连接，最后调用Close释放资源
         /// </summary>

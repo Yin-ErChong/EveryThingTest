@@ -65,10 +65,6 @@
     <Compile Include="BaseClass\TestBase.cs" />
     <Compile Include="ExtensionFun\NormalExtension.cs" />
     <Compile Include="ExtensionFun\TcpFuncExtension.cs" />
-    <Compile Include="Helper\ExcelHelper.cs" />
-    <Compile Include="Helper\TcpClientClient.cs" />
-    <Compile Include="Helper\TcpSocketServer.cs" />
-    <Compile Include="Helper\TcpSocketService2.cs" />
     <Compile Include="InstanceClass\Asyn_AwaitTest.cs" />
     <Compile Include="InstanceClass\CommonTest.cs" />
     <Compile Include="InstanceClass\BaiduTest.cs" />
@@ -86,6 +82,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TestUtil\TestUtil.csproj">
+      <Project>{31064866-E7BC-4CA3-B043-5F58EA7EFA0F}</Project>
+      <Name>TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
