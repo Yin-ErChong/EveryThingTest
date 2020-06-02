@@ -28,19 +28,30 @@ namespace EveryThingTest.InstanceClass
         }
         public override void Start()
         {
+            NullAbleModelBase nullAbleModel2 = new NullAbleModelBase();
+            StringBuilder stringBuilder = new StringBuilder("hi");
+            ChangObject(ref stringBuilder);
+
+            
+            nullAbleModel2 = null;
+            NullAbleModel nullAbleModel3 = (NullAbleModel)nullAbleModel2;
+
             NullAbleModel nullAbleModel = new NullAbleModel();
             int? nullable = null;
             int notnull =2;
             notnull = nullable.GetValueOrDefault();
 
         }
+        public void ChangObject(ref StringBuilder strB)
+        {
+            strB=new StringBuilder("??");
+        }
     }
-    public class NullAbleModel
+    public class NullAbleModel: NullAbleModelBase
     {
-        public NullAbleModel2 model { get; set; }
-
+        public int x;
     }
-    public class NullAbleModel2
+    public class NullAbleModelBase
     {
         public int? num;
 

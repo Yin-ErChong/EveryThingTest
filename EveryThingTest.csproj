@@ -51,6 +51,7 @@
     <Compile Include="ExtensionFun\TcpFuncExtension.cs" />
     <Compile Include="Helper\TcpSocketClient.cs" />
     <Compile Include="Helper\TcpSocketServer.cs" />
+    <Compile Include="InstanceClass\ReflectTest.cs" />
     <Compile Include="InstanceClass\ShuiYouTranserTest.cs" />
     <Compile Include="InstanceClass\TCPTest.cs" />
     <Compile Include="InstanceClass\FirstTest.cs" />

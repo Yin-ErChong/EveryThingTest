@@ -30,7 +30,8 @@ namespace EveryThingTest.Helper
         }
         public bool StartConnect(IPEndPoint endPoint)
         {
-            socketClient.Connect(endPoint);//https://www.cnblogs.com/longdb/articles/7015827.html
+             socketClient.Connect(endPoint);//https://www.cnblogs.com/longdb/articles/7015827.html
+            return true;
         }
     }
 }
