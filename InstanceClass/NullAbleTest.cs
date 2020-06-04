@@ -30,7 +30,8 @@ namespace EveryThingTest.InstanceClass
         {
             NullAbleModelBase nullAbleModel2 = new NullAbleModelBase();
             StringBuilder stringBuilder = new StringBuilder("hi");
-            ChangObject(ref stringBuilder);
+            object value = 9;
+            ChangObject(value);
 
             
             nullAbleModel2 = null;
@@ -42,9 +43,9 @@ namespace EveryThingTest.InstanceClass
             notnull = nullable.GetValueOrDefault();
 
         }
-        public void ChangObject(ref StringBuilder strB)
+        public void ChangObject(object strB)
         {
-            strB=new StringBuilder("??");
+            strB=8;
         }
     }
     public class NullAbleModel: NullAbleModelBase
