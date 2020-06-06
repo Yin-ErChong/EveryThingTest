@@ -14,10 +14,12 @@ namespace EveryThingTest
             //FirstTest.Instance.Begin();
             //NullAbleTest.Instance.Begin();
             //ShuiYouTest.Instance.Begin();
-            TCPTest.Instance.Begin();
+            //ComputerInfoTest.Instance.Begin();
             //ExcelTest.Instance.Begin();
             //CommonTest.Instance.Begin();
             //Asyn_AwaitTest.Instance.Begin();
+            ComputerInfoTest.Instance.Begin();
+
         }
     }
 }
