@@ -50,6 +50,10 @@ namespace EveryThingTest.InstanceClass
             }
             Console.ReadLine();
         }
+        public override void End()
+        {
+            Console.WriteLine("It'End");
+        }
 
     }
     public class FeedBackMessage

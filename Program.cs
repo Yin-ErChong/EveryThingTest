@@ -16,7 +16,8 @@ namespace EveryThingTest
             //ShuiYouTest.Instance.Begin();
             //TCPTest.Instance.Begin();
             //NullAbleTest.Instance.Begin();
-            ReflectTest.Instance.Begin();
+            //ReflectTest.Instance.Begin();
+            EnumeratorTest.Instance.Begin();
         }
     }
 }
