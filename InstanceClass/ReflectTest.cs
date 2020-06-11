@@ -1,4 +1,5 @@
 ﻿using EveryThingTest.BaseClass;
+using EveryThingTest.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,8 +31,13 @@ namespace EveryThingTest.InstanceClass
                 _Instance = value;
             }
         }
+
         public override void Start()
         {
+            Guid guid = Guid.NewGuid();
+            string str = "123";
+            var ty= str.GetType();
+
             Stopwatch stopwatch = new Stopwatch();
             ReflectModel reflectModel = new ReflectModel();
             Type type = typeof(ReflectModel);
@@ -46,6 +53,7 @@ namespace EveryThingTest.InstanceClass
             stopwatch.Restart();
             for (int i = 0; i < 10000000; i++)
             {
+                
                 setter2(reflectModel, i);
             }
             stopwatch.Stop();
@@ -78,52 +86,7 @@ namespace EveryThingTest.InstanceClass
     public class ReflectModelBase<T>
     {
 
-        private static Dictionary<string,Dictionary<string, PropertyInfo>> propertyInfoDic=new Dictionary<string, Dictionary<string, PropertyInfo>>();
-        private static object locker = new object();
-        private Type type = typeof(T);
-        public void SetDefault()
-        {
-            InitPropertyInfo(type);
-            foreach (var item in propertyInfoDic[type.ToString()])
-            {
-                Type itemType = item.Value.PropertyType;
-                TypeCode typeCode = Type.GetTypeCode(itemType);
-                switch (typeCode)
-                {
-                    case TypeCode.String: SetValue(item.Key, string.Empty);break;
-                }
-                //if (itemType.IsGenericType && itemType.
-                //    GetGenericTypeDefinition().Equals
-                //    (typeof(Nullable<>)))
-                //{
-                //    var types = itemType.GetGenericArguments();
-                //}
-            }
-        }
-        public static void InitPropertyInfo(Type type)
-        {            
-            string typeName = type.ToString();
-            if (!propertyInfoDic.ContainsKey(typeName))
-            {
-                lock (locker)
-                {
-                    propertyInfoDic.Add(typeName,new Dictionary<string, PropertyInfo>());
-                    foreach (var item in type.GetProperties())
-                    {
-                        propertyInfoDic[typeName].Add(item.Name, item);
-                    }
-                }
-            }            
-        }
-        public void SetValue(string properName, object value)
-        {
-            InitPropertyInfo(type);
-            string typeName = type.ToString();
-            if (propertyInfoDic[typeName].ContainsKey(properName))
-            {
-                propertyInfoDic[typeName][properName].SetValue(this, value);
-            }
-        }
+       
         public int? num { get; set; }
 
     }
@@ -175,4 +138,6 @@ namespace EveryThingTest.InstanceClass
                 il.Emit(OpCodes.Castclass, type);
         }
     }
+
+
 }
