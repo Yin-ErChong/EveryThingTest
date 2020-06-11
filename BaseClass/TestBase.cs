@@ -14,10 +14,10 @@ namespace EveryThingTest.BaseClass
     public abstract class TestBase
     {
         public abstract void Start();
-        public virtual void End() {
+        public virtual void End()
+        {
             Console.WriteLine("It'End");
-            Console.ReadLine();
-
+            Console.Read();
         }
 
         public void Begin()

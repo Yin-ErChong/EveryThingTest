@@ -47,6 +47,10 @@ namespace EveryThingTest.InstanceClass
         {
             strB=8;
         }
+        public override void End()
+        {
+            Console.WriteLine("It'End");
+        }
     }
     public class NullAbleModel: NullAbleModelBase
     {
