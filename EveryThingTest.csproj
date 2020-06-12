@@ -52,9 +52,11 @@
     <Compile Include="BaseClass\TestBase.cs" />
     <Compile Include="ExtensionFun\NormalExtension.cs" />
     <Compile Include="ExtensionFun\TcpFuncExtension.cs" />
+    <Compile Include="Helper\TcpClientClient.cs" />
     <Compile Include="Helper\TcpSocketClient.cs" />
     <Compile Include="Helper\TcpSocketServer.cs" />
     <Compile Include="InstanceClass\EnumeratorTest.cs" />
+    <Compile Include="InstanceClass\ExpressionTest.cs" />
     <Compile Include="InstanceClass\Generics.cs" />
     <Compile Include="InstanceClass\ReflectTest.cs" />
     <Compile Include="InstanceClass\ShuiYouTranserTest.cs" />

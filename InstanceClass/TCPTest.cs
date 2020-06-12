@@ -1,6 +1,7 @@
 ﻿using Communication;
 using EveryThingTest.BaseClass;
 using EveryThingTest.ExtensionFun;
+using EveryThingTest.Helper;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,9 +35,9 @@ namespace EveryThingTest.InstanceClass
         }
         public override void Start()
         {
-            
-            MyTcpServer server = new MyTcpServer();
-            server.OpenServer(9361);
+            TcpClientClient.longlink();
+            //MyTcpServer server = new MyTcpServer();
+            //server.OpenServer(9361);
         }
         public override void End()
         {

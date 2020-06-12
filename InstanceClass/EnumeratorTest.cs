@@ -31,6 +31,7 @@ namespace EveryThingTest.InstanceClass
             Console.WriteLine("It'Start");
             List<string> strs = new List<string>() {"1","2","3" };
             CollectionTest collectionTest = new CollectionTest(strs);
+            string se= strs[6];
             foreach (var item in collectionTest)
             {
                 Console.WriteLine(item);
