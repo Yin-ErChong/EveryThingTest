@@ -58,6 +58,7 @@
     <Compile Include="InstanceClass\EnumeratorTest.cs" />
     <Compile Include="InstanceClass\ExpressionTest.cs" />
     <Compile Include="InstanceClass\Generics.cs" />
+    <Compile Include="InstanceClass\HttpRequestTest.cs" />
     <Compile Include="InstanceClass\ReflectTest.cs" />
     <Compile Include="InstanceClass\ShuiYouTranserTest.cs" />
     <Compile Include="InstanceClass\TCPTest.cs" />
