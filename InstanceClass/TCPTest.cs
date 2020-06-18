@@ -35,7 +35,7 @@ namespace EveryThingTest.InstanceClass
         public override void Start()
         {
             Console.WriteLine("我是服务端");
-            TcpSocketService2.SocketServie();
+           // TcpSocketService2.SocketServie();
         }
         public override void End()
         {
