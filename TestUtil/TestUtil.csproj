@@ -4,18 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1695F695-BE09-4019-A2FC-F466C3FC333A}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>EveryThingTest</RootNamespace>
-    <AssemblyName>EveryThingTest</AssemblyName>
+    <ProjectGuid>{31064866-E7BC-4CA3-B043-5F58EA7EFA0F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TestUtil</RootNamespace>
+    <AssemblyName>TestUtil</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +24,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -35,25 +33,26 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib, Version=1.0.0.999, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <HintPath>packages\SharpZipLib.1.0.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\EveryThingTest\packages\SharpZipLib.1.0.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\EveryThingTest\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NPOI, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>packages\NPOI.2.4.1\lib\net45\NPOI.dll</HintPath>
+      <HintPath>..\EveryThingTest\packages\NPOI.2.4.1\lib\net45\NPOI.dll</HintPath>
     </Reference>
     <Reference Include="NPOI.OOXML, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>packages\NPOI.2.4.1\lib\net45\NPOI.OOXML.dll</HintPath>
+      <HintPath>..\EveryThingTest\packages\NPOI.2.4.1\lib\net45\NPOI.OOXML.dll</HintPath>
     </Reference>
     <Reference Include="NPOI.OpenXml4Net, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>packages\NPOI.2.4.1\lib\net45\NPOI.OpenXml4Net.dll</HintPath>
+      <HintPath>..\EveryThingTest\packages\NPOI.2.4.1\lib\net45\NPOI.OpenXml4Net.dll</HintPath>
     </Reference>
     <Reference Include="NPOI.OpenXmlFormats, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>packages\NPOI.2.4.1\lib\net45\NPOI.OpenXmlFormats.dll</HintPath>
+      <HintPath>..\EveryThingTest\packages\NPOI.2.4.1\lib\net45\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,34 +61,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseClass\PowerBase.cs" />
-    <Compile Include="BaseClass\TestBase.cs" />
-    <Compile Include="ExtensionFun\NormalExtension.cs" />
-    <Compile Include="ExtensionFun\TcpFuncExtension.cs" />
-    <Compile Include="InstanceClass\Asyn_AwaitTest.cs" />
-    <Compile Include="InstanceClass\CommonTest.cs" />
-    <Compile Include="InstanceClass\BaiduTest.cs" />
-    <Compile Include="InstanceClass\ComputerInfoTest.cs" />
-    <Compile Include="InstanceClass\ExcelTest.cs" />
-    <Compile Include="InstanceClass\TCPTest.cs" />
-    <Compile Include="InstanceClass\FirstTest.cs" />
-    <Compile Include="InstanceClass\ShuiYouTest.cs" />
-    <Compile Include="InstanceClass\NullAbleTest.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="ComputerInfoHelper\ComputerInfo.cs" />
+    <Compile Include="ComputerInfoHelper\ComputerInfo2.cs" />
+    <Compile Include="ComputerInfoHelper\ComputerInfoModel.cs" />
+    <Compile Include="ComputerInfoHelper\NetAssess.cs" />
+    <Compile Include="ComputerInfoHelper\NetworkAdapter.cs" />
+    <Compile Include="ComputerInfoHelper\NetWorkMonitor.cs" />
+    <Compile Include="Helper\ExcelHelper.cs" />
+    <Compile Include="Helper\HttpHelper.cs" />
+    <Compile Include="Helper\TcpClientClient.cs" />
+    <Compile Include="Helper\TcpSocketServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="TestUtil\TestUtil.csproj">
-      <Project>{31064866-E7BC-4CA3-B043-5F58EA7EFA0F}</Project>
-      <Name>TestUtil</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SpiderUtil.ComputerInfoHelper;
-using Lemony.SystemInfo;
 using System.Threading;
 using System.Diagnostics;
+using SpiderUtil.ComputerInfoHelper;
+using Lemony.SystemInfo;
 using TestUtil.ComputerInfoHelper;
 
 namespace EveryThingTest.InstanceClass
