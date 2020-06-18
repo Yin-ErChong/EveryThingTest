@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29201.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TsetCore", "TsetCore\TsetCore.csproj", "{9ADF9956-BB03-4D6C-8AD2-B5F9290D594A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUtil", "TestUtil\TestUtil.csproj", "{31064866-E7BC-4CA3-B043-5F58EA7EFA0F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EveryThingTest", "EveryThingTest\EveryThingTest.csproj", "{1695F695-BE09-4019-A2FC-F466C3FC333A}"
@@ -15,10 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9ADF9956-BB03-4D6C-8AD2-B5F9290D594A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9ADF9956-BB03-4D6C-8AD2-B5F9290D594A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9ADF9956-BB03-4D6C-8AD2-B5F9290D594A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9ADF9956-BB03-4D6C-8AD2-B5F9290D594A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{31064866-E7BC-4CA3-B043-5F58EA7EFA0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{31064866-E7BC-4CA3-B043-5F58EA7EFA0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31064866-E7BC-4CA3-B043-5F58EA7EFA0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
