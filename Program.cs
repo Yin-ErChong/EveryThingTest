@@ -17,7 +17,7 @@ namespace EveryThingTest
             //TCPTest.Instance.Begin();
             //NullAbleTest.Instance.Begin();
             //ReflectTest.Instance.Begin();
-            EnumeratorTest.Instance.Begin();
+            ThreadTest.Instance.Begin();
         }
     }
 }

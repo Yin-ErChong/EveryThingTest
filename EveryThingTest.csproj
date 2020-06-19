@@ -62,6 +62,7 @@
     <Compile Include="InstanceClass\FirstTest.cs" />
     <Compile Include="InstanceClass\ShuiYouTest.cs" />
     <Compile Include="InstanceClass\NullAbleTest.cs" />
+    <Compile Include="InstanceClass\ThreadTest.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\ReflectTestModel2.cs" />
     <Compile Include="Model\ReflectTestModel.cs" />
