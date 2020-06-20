@@ -72,6 +72,7 @@
     <Compile Include="ComputerInfoHelper\NetWorkMonitor.cs" />
     <Compile Include="Helper\ExcelHelper.cs" />
     <Compile Include="Helper\HttpHelper.cs" />
+    <Compile Include="Helper\HttpHelperNew.cs" />
     <Compile Include="Helper\TcpClientClient.cs" />
     <Compile Include="Helper\TcpSocketServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -18,7 +18,7 @@ namespace EveryThingTest
             //ExcelTest.Instance.Begin();
             //CommonTest.Instance.Begin();
             //Asyn_AwaitTest.Instance.Begin();
-            ComputerInfoTest.Instance.Begin();
+            HttpRequestTest.Instance.Begin();
 
         }
     }

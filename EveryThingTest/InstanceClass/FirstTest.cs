@@ -32,6 +32,7 @@ namespace EveryThingTest.InstanceClass
         public override void End()
         {
             Console.WriteLine("It'End");
+            Console.Read();
         }
     }
 }
