@@ -35,6 +35,7 @@ namespace EveryThingTest.InstanceClass
         List<long> timeList = new List<long>();
         public override void Start()
         {
+            var id = Guid.NewGuid();
             Console.WriteLine("It'Start");
             while (true)
             {
