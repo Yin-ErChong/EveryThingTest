@@ -75,6 +75,7 @@
     <Compile Include="InstanceClass\ComputerInfoTest.cs" />
     <Compile Include="InstanceClass\ExcelTest.cs" />
     <Compile Include="InstanceClass\HttpRequestTest.cs" />
+    <Compile Include="InstanceClass\LeetCode\二分法.cs" />
     <Compile Include="InstanceClass\TCPTest.cs" />
     <Compile Include="InstanceClass\FirstTest.cs" />
     <Compile Include="InstanceClass\ShuiYouTest.cs" />
