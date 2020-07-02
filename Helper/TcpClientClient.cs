@@ -80,7 +80,8 @@ namespace EveryThingTest.Helper
             while (true)
             {
                 Console.WriteLine("请输入");
-                string sentstr = Console.ReadLine();
+                string sentstr = "心跳";// Console.ReadLine();
+                Thread.Sleep(10000);
                 SentMsg(sentstr, clientSocket);
             }
         }
