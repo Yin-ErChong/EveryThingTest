@@ -1,4 +1,5 @@
 ﻿using EveryThingTest.InstanceClass;
+using EveryThingTest.InstanceClass.LeetCode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace EveryThingTest
             //ExcelTest.Instance.Begin();
             //CommonTest.Instance.Begin();
             //Asyn_AwaitTest.Instance.Begin();
-            HttpRequestTest.Instance.Begin();
+            二分法.Instance.Begin();
 
         }
     }
