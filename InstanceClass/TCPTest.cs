@@ -10,7 +10,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace EveryThingTest.InstanceClass
 {
@@ -46,7 +45,7 @@ namespace EveryThingTest.InstanceClass
         public void listen()
         {
             string ip = "127.0.0.1";
-            int port = 9365;
+            int port = 2624;
             TcpListener listener = new TcpListener(new IPEndPoint(IPAddress.Parse(ip), port));
             listener.Start();
             while (true)

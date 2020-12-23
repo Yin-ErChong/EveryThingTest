@@ -9,8 +9,6 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
-
 namespace EveryThingTest.InstanceClass
 {
     public class ReflectTest : TestBase, ITestBase
@@ -46,11 +44,10 @@ namespace EveryThingTest.InstanceClass
             stopwatch.Start();
             for (int i = 0; i < 10000000; i++)
             {
-                pro.SetValue(reflectModel, i);
+              //  pro.SetValue(reflectModel, i);
             }
             stopwatch.Stop();
             Console.WriteLine($"反射赋值耗时{stopwatch.ElapsedMilliseconds}");
-            stopwatch.Restart();
             for (int i = 0; i < 10000000; i++)
             {
                 
@@ -58,7 +55,6 @@ namespace EveryThingTest.InstanceClass
             }
             stopwatch.Stop();
             Console.WriteLine($"EmitSet赋值耗时{stopwatch.ElapsedMilliseconds}");
-            stopwatch.Restart();
             for (int i = 0; i < 10000000; i++)
             {
                 reflectModel.x1=i;

@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace EveryThingTest.Model
 {
     public  class BaseModel
     {
+        #region 公共字段
+        public int Id { get; set; }
+        public DateTime CreateTime { get; set; }
+        public DateTime ModifiedTime { get; set; }
+        public int Enable { get; set; }
+        #endregion
         private static Dictionary<string, Dictionary<string, PropertyInfo>> propertyInfoDic = new Dictionary<string, Dictionary<string, PropertyInfo>>();
         private static object locker = new object();
         private Type type ;
@@ -53,7 +58,7 @@ namespace EveryThingTest.Model
             string typeName = type.ToString();
             if (propertyInfoDic[typeName].ContainsKey(properName))
             {
-                propertyInfoDic[typeName][properName].SetValue(this, value);
+                //propertyInfoDic[typeName][properName].SetValue(this, value);
             }
         }
     }

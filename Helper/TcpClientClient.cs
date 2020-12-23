@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
  
 namespace EveryThingTest.Helper
 {
@@ -55,11 +54,11 @@ namespace EveryThingTest.Helper
         public static void longlink()
         {
             //设定服务器IP地址  
-            IPAddress ip = IPAddress.Parse("106.54.142.198");//106.54.142.198//127.0.0.1
+            IPAddress ip = IPAddress.Parse("47.103.92.119");//106.54.142.198//127.0.0.1
             Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             try
             {
-                clientSocket.Connect(new IPEndPoint(ip, 2624)); //配置服务器IP与端口  
+                clientSocket.Connect(new IPEndPoint(ip, 80)); //配置服务器IP与端口  
                 Console.WriteLine("连接服务器成功");
             }
             catch(Exception ee)
@@ -80,7 +79,7 @@ namespace EveryThingTest.Helper
             while (true)
             {
                 Console.WriteLine("请输入");
-                string sentstr = "心跳";// Console.ReadLine();
+                string sentstr = Console.ReadLine();
                 Thread.Sleep(10000);
                 SentMsg(sentstr, clientSocket);
             }

@@ -1,21 +1,24 @@
 ﻿using EveryThingTest.BaseClass;
+using EveryThingTest.Helper;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace EveryThingTest.InstanceClass
 {
-    public class HttpRequestTest : TestBase, ITestBase
+    public class 侦听Test: TestBase, ITestBase
     {
-        private static HttpRequestTest _Instance;
-        public static HttpRequestTest Instance
+        private static 侦听Test _Instance;
+        public static 侦听Test Instance
         {
             get
             {
                 if (_Instance == null)
                 {
-                    _Instance = new HttpRequestTest();
+                    _Instance = new 侦听Test();
                 }
                 return _Instance;
             }
@@ -26,7 +29,14 @@ namespace EveryThingTest.InstanceClass
         }
         public override void Start()
         {
-            Console.WriteLine("It'Start");
+
+            //WinCapHelper.WinCapInstance.Listen();
+        }
+        public override void End()
+        {
+            Console.WriteLine("It'End");
+            Console.ReadLine();
         }
     }
+
 }
