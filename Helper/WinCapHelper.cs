@@ -62,17 +62,15 @@ namespace EveryThingTest.Helper
                 return;
             }
 
-
-            foreach (PcapDevice device in SharpPcap.CaptureDeviceList.Instance)
-            {
-                //分别启动监听，指定包的处理函数
-                device.OnPacketArrival +=
+            LibPcapLiveDeviceList devices = LibPcapLiveDeviceList.Instance;
+            PcapDevice device = devices[2];
+            //分别启动监听，指定包的处理函数
+            device.OnPacketArrival +=
                     new PacketArrivalEventHandler(device_OnPacketArrival);
-                device.Open(DeviceMode.Normal, 1000);
-                device.Capture(500);
-                //device.StartCapture();
-            }
-           // _thread.Start();
+            device.Open(DeviceMode.Normal, 1000);
+            device.Capture();
+            //device.StartCapture();
+            //_thread.Start();
         }
 
 
@@ -137,7 +135,7 @@ namespace EveryThingTest.Helper
             //var udpPacket = PacketDotNet.UdpPacket.GetEncapsulated(packet);
             //var tcpPacket = PacketDotNet.TcpPacket.GetEncapsulated(packet);
             string ret = "";
-            System.Net.IPAddress dstIp = ipPacket.DestinationAddress;
+            System.Net.IPAddress dstIp = ipPacket?.DestinationAddress;
             if (dstIp.ToString()== "47.103.92.119")
             {
                 PrintPacket(ref ret, packet);

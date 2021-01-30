@@ -16,7 +16,7 @@ namespace EveryThingTest
             //TCPTest.Instance.Begin();
             //NullAbleTest.Instance.Begin();
             //ReflectTest.Instance.Begin();
-            TCPTest.Instance.Begin();
+            相关性Test.Instance.Begin();
         }
     }
 }

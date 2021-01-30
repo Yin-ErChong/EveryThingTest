@@ -113,8 +113,11 @@
     <Compile Include="InstanceClass\ShuiYouTest.cs" />
     <Compile Include="InstanceClass\NullAbleTest.cs" />
     <Compile Include="InstanceClass\ThreadTest.cs" />
+    <Compile Include="InstanceClass\TimerTest.cs" />
     <Compile Include="InstanceClass\侦听Test.cs" />
     <Compile Include="InstanceClass\序列化Test.cs" />
+    <Compile Include="InstanceClass\正则Test.cs" />
+    <Compile Include="InstanceClass\相关性Test.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\ReflectTestModel2.cs" />
     <Compile Include="Model\ReflectTestModel.cs" />

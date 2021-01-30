@@ -29,9 +29,12 @@ namespace EveryThingTest.InstanceClass
         public override void Start()
         {
             Console.WriteLine("It'Start");
-            序列化ModelTest test = new 序列化ModelTest();
+            UserInfo test = new UserInfo();
+
             test.SetDefault();
-            var str = JsonConvert.SerializeObject(test);
+            List<UserInfo> userInfos = new List<UserInfo>();
+            userInfos.Add(test);
+            var str = JsonConvert.SerializeObject(userInfos);
             Console.WriteLine(str);
         }
         public override void End()

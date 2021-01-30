@@ -5,7 +5,15 @@ using System.Text;
 
 namespace EveryThingTest.Model
 {
-    public class 序列化ModelTest:BaseModel
+	public class UserInfo : BaseModel
+	{
+		public string Url { get; set; }
+		public string UserName { get; set; }
+		public string PassWord { get; set; }
+		public string IsLog { get; set; }
+		public string Cookie { get; set; }
+	}
+	public class 序列化ModelTest:BaseModel
     {
 		/// <summary>
 		/// 

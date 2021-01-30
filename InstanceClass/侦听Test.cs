@@ -30,7 +30,7 @@ namespace EveryThingTest.InstanceClass
         public override void Start()
         {
 
-            //WinCapHelper.WinCapInstance.Listen();
+            WinCapHelper.WinCapInstance.Listen();
         }
         public override void End()
         {
