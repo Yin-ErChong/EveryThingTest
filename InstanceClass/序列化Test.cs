@@ -34,8 +34,32 @@ namespace EveryThingTest.InstanceClass
             test.SetDefault();
             List<UserInfo> userInfos = new List<UserInfo>();
             userInfos.Add(test);
-            var str = JsonConvert.SerializeObject(userInfos);
-            Console.WriteLine(str);
+            string str = @"[
+  {
+                'Url': '牛哥URL',
+    'UserName': null,
+    'PassWord': null,
+    'IsLog': null,
+    'Cookie': null,
+    'Id': 0,
+    'CreateTime': '0001-01-01T00:00:00',
+    'ModifiedTime': '0001-01-01T00:00:00',
+    'Enable': 0
+  },
+  {
+                'Url': null,
+    'UserName': null,
+    'PassWord': null,
+    'IsLog': null,
+    'Cookie': null,
+    'Id': 0,
+    'CreateTime': '0001-01-01T00:00:00',
+    'ModifiedTime': '0001-01-01T00:00:00',
+    'Enable': 0
+  }
+]";
+            userInfos = JsonConvert.DeserializeObject<List<UserInfo>>(str);//JsonConvert.SerializeObject(userInfos);
+            Console.WriteLine(userInfos[1].CreateTime);
         }
         public override void End()
         {

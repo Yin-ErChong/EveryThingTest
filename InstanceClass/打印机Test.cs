@@ -3,19 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EveryThingTest.InstanceClass
 {
-    
-    public class FirstTest : TestBase ,ITestBase
+    public class 打印机Test : TestBase, ITestBase
     {
-        private static FirstTest _Instance;
-        public static FirstTest Instance {
+        private static 打印机Test _Instance;
+        public static 打印机Test Instance
+        {
             get
             {
                 if (_Instance == null)
                 {
-                    _Instance = new FirstTest();                   
+                    _Instance = new 打印机Test();
                 }
                 return _Instance;
             }

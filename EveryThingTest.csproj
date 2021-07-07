@@ -60,11 +60,29 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>packages\Portable.BouncyCastle.1.8.6\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="Ccr.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Ccr.Core.1.0.0\lib\net471\Ccr.Core.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.2.0.246, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>packages\SharpZipLib.1.2.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=2.5.3.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>packages\NPOI.2.5.3\lib\net45\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.5.3.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>packages\NPOI.2.5.3\lib\net45\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.5.3.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>packages\NPOI.2.5.3\lib\net45\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.5.3.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>packages\NPOI.2.5.3\lib\net45\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
     <Reference Include="PacketDotNet, Version=0.16.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\PacketDotNet.0.16.0\lib\PacketDotNet.dll</HintPath>
@@ -77,6 +95,7 @@
       <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -87,6 +106,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -98,11 +118,18 @@
     <Compile Include="BaseClass\TestBase.cs" />
     <Compile Include="ExtensionFun\NormalExtension.cs" />
     <Compile Include="ExtensionFun\TcpFuncExtension.cs" />
+    <Compile Include="Helper\ExcelToTable.cs" />
+    <Compile Include="Helper\GetDataTable.cs" />
+    <Compile Include="Helper\HttpHelper\HttpRequestModel.cs" />
+    <Compile Include="Helper\HttpHelper\HttpRequestService.cs" />
+    <Compile Include="Helper\PrintHelper.cs" />
+    <Compile Include="Helper\TableToExcel.cs" />
     <Compile Include="Helper\TcpClientClient.cs" />
     <Compile Include="Helper\TcpSocketClient.cs" />
     <Compile Include="Helper\TcpSocketServer.cs" />
     <Compile Include="Helper\WinCapHelper.cs" />
     <Compile Include="InstanceClass\EnumeratorTest.cs" />
+    <Compile Include="InstanceClass\ExcelTest.cs" />
     <Compile Include="InstanceClass\ExpressionTest.cs" />
     <Compile Include="InstanceClass\Generics.cs" />
     <Compile Include="InstanceClass\HttpRequestTest.cs" />
@@ -114,9 +141,12 @@
     <Compile Include="InstanceClass\NullAbleTest.cs" />
     <Compile Include="InstanceClass\ThreadTest.cs" />
     <Compile Include="InstanceClass\TimerTest.cs" />
+    <Compile Include="InstanceClass\VMLoginTest.cs" />
     <Compile Include="InstanceClass\侦听Test.cs" />
     <Compile Include="InstanceClass\序列化Test.cs" />
+    <Compile Include="InstanceClass\打印机Test.cs" />
     <Compile Include="InstanceClass\正则Test.cs" />
+    <Compile Include="InstanceClass\牛哥Test.cs" />
     <Compile Include="InstanceClass\相关性Test.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\ReflectTestModel2.cs" />

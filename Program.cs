@@ -1,6 +1,8 @@
-﻿using EveryThingTest.InstanceClass;
+﻿using EveryThingTest.Helper;
+using EveryThingTest.InstanceClass;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -16,7 +18,10 @@ namespace EveryThingTest
             //TCPTest.Instance.Begin();
             //NullAbleTest.Instance.Begin();
             //ReflectTest.Instance.Begin();
-            相关性Test.Instance.Begin();
+            //序列化Test.Instance.Begin();
+
+            ExcelTest.Instance.Begin();
+
         }
     }
 }

@@ -3,19 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EveryThingTest.InstanceClass
 {
-    
-    public class FirstTest : TestBase ,ITestBase
+    public class 牛哥Test : TestBase, ITestBase
     {
-        private static FirstTest _Instance;
-        public static FirstTest Instance {
+        private static 牛哥Test _Instance;
+        public static 牛哥Test Instance
+        {
             get
             {
                 if (_Instance == null)
                 {
-                    _Instance = new FirstTest();                   
+                    _Instance = new 牛哥Test();
                 }
                 return _Instance;
             }
@@ -26,6 +27,8 @@ namespace EveryThingTest.InstanceClass
         }
         public override void Start()
         {
+
+            Console.WriteLine("Hello！");
             Console.WriteLine("It'Start");
         }
         public override void End()
