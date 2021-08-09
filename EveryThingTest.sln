@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EveryThingTest", "EveryThin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormTest", "FormTest\FormTest.csproj", "{F99B5EA2-3B95-48F0-86CC-72567D8FDE4E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "..\ConsoleApp1\ConsoleApp1.csproj", "{37BE2254-2EB3-4330-86E2-16FB71051422}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,14 @@ Global
 		{F99B5EA2-3B95-48F0-86CC-72567D8FDE4E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F99B5EA2-3B95-48F0-86CC-72567D8FDE4E}.Release|x86.ActiveCfg = Release|Any CPU
 		{F99B5EA2-3B95-48F0-86CC-72567D8FDE4E}.Release|x86.Build.0 = Release|Any CPU
+		{37BE2254-2EB3-4330-86E2-16FB71051422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37BE2254-2EB3-4330-86E2-16FB71051422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37BE2254-2EB3-4330-86E2-16FB71051422}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{37BE2254-2EB3-4330-86E2-16FB71051422}.Debug|x86.Build.0 = Debug|Any CPU
+		{37BE2254-2EB3-4330-86E2-16FB71051422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37BE2254-2EB3-4330-86E2-16FB71051422}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37BE2254-2EB3-4330-86E2-16FB71051422}.Release|x86.ActiveCfg = Release|Any CPU
+		{37BE2254-2EB3-4330-86E2-16FB71051422}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -20,7 +20,8 @@ namespace EveryThingTest
             //ReflectTest.Instance.Begin();
             //序列化Test.Instance.Begin();
 
-            ExcelTest.Instance.Begin();
+            //GetTest.Instance.Begin();
+            HttpRequestTest.Instance.Begin();
 
         }
     }

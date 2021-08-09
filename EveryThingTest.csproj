@@ -96,6 +96,7 @@
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -103,9 +104,11 @@
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
+    <Reference Include="System.Printing" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -119,10 +122,15 @@
     <Compile Include="ExtensionFun\NormalExtension.cs" />
     <Compile Include="ExtensionFun\TcpFuncExtension.cs" />
     <Compile Include="Helper\ExcelToTable.cs" />
-    <Compile Include="Helper\GetDataTable.cs" />
     <Compile Include="Helper\HttpHelper\HttpRequestModel.cs" />
     <Compile Include="Helper\HttpHelper\HttpRequestService.cs" />
     <Compile Include="Helper\PrintHelper.cs" />
+    <Compile Include="Helper\PrintHelper\EpsonNetSDK_IJP.cs" />
+    <Compile Include="Helper\PrintHelper\EsponPrinter.cs" />
+    <Compile Include="Helper\PrintHelper\Printer.cs" />
+    <Compile Include="Helper\PrintHelper\Printer2.cs" />
+    <Compile Include="Helper\PrintHelper\PrinterS.cs" />
+    <Compile Include="Helper\PrintHelper\PrinterSys.cs" />
     <Compile Include="Helper\TableToExcel.cs" />
     <Compile Include="Helper\TcpClientClient.cs" />
     <Compile Include="Helper\TcpSocketClient.cs" />
@@ -131,6 +139,8 @@
     <Compile Include="InstanceClass\EnumeratorTest.cs" />
     <Compile Include="InstanceClass\ExcelTest.cs" />
     <Compile Include="InstanceClass\ExpressionTest.cs" />
+    <Compile Include="InstanceClass\GetTest.cs" />
+    <Compile Include="InstanceClass\PrinterTest.cs" />
     <Compile Include="InstanceClass\Generics.cs" />
     <Compile Include="InstanceClass\HttpRequestTest.cs" />
     <Compile Include="InstanceClass\ReflectTest.cs" />
