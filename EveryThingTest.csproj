@@ -69,6 +69,9 @@
     <Reference Include="ICSharpCode.SharpZipLib, Version=1.2.0.246, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>packages\SharpZipLib.1.2.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -86,6 +89,9 @@
     </Reference>
     <Reference Include="PacketDotNet, Version=0.16.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\PacketDotNet.0.16.0\lib\PacketDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=108.0.3.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>packages\RestSharp.108.0.3\lib\netstandard2.0\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="SharpPcap, Version=4.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\SharpPcap.4.4.0\lib\SharpPcap.dll</HintPath>
@@ -105,8 +111,20 @@
       <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
     <Reference Include="System.Printing" />
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encodings.Web.5.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=5.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Json.5.0.1\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
@@ -121,9 +139,12 @@
     <Compile Include="BaseClass\TestBase.cs" />
     <Compile Include="ExtensionFun\NormalExtension.cs" />
     <Compile Include="ExtensionFun\TcpFuncExtension.cs" />
+    <Compile Include="Helper\BitMapHelper.cs" />
+    <Compile Include="Helper\CommandHelper.cs" />
     <Compile Include="Helper\ExcelToTable.cs" />
     <Compile Include="Helper\HttpHelper\HttpRequestModel.cs" />
     <Compile Include="Helper\HttpHelper\HttpRequestService.cs" />
+    <Compile Include="Helper\LinuxCommandExcute.cs" />
     <Compile Include="Helper\PrintHelper.cs" />
     <Compile Include="Helper\PrintHelper\EpsonNetSDK_IJP.cs" />
     <Compile Include="Helper\PrintHelper\EsponPrinter.cs" />
@@ -136,9 +157,12 @@
     <Compile Include="Helper\TcpSocketClient.cs" />
     <Compile Include="Helper\TcpSocketServer.cs" />
     <Compile Include="Helper\WinCapHelper.cs" />
+    <Compile Include="InstanceClass\Base64Test.cs" />
     <Compile Include="InstanceClass\EnumeratorTest.cs" />
     <Compile Include="InstanceClass\ExcelTest.cs" />
     <Compile Include="InstanceClass\ExpressionTest.cs" />
+    <Compile Include="InstanceClass\DownloadTest.cs" />
+    <Compile Include="InstanceClass\Outlook验证码破解.cs" />
     <Compile Include="InstanceClass\GetTest.cs" />
     <Compile Include="InstanceClass\PrinterTest.cs" />
     <Compile Include="InstanceClass\Generics.cs" />
@@ -161,6 +185,7 @@
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\ReflectTestModel2.cs" />
     <Compile Include="Model\ReflectTestModel.cs" />
+    <Compile Include="Model\云码ResponseModel.cs" />
     <Compile Include="Model\序列化Test.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

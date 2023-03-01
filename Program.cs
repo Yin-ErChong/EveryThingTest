@@ -1,4 +1,5 @@
-﻿using EveryThingTest.Helper;
+﻿using EveryThingTest.BaseClass;
+using EveryThingTest.Helper;
 using EveryThingTest.InstanceClass;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,8 @@ namespace EveryThingTest
             //序列化Test.Instance.Begin();
 
             //GetTest.Instance.Begin();
-            HttpRequestTest.Instance.Begin();
+            ITestBase test = 正则Test.Instance;
+            正则Test.Instance.Begin();
 
         }
     }

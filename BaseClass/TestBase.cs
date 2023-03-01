@@ -19,6 +19,10 @@ namespace EveryThingTest.BaseClass
             Console.WriteLine("It'End");
             Console.Read();
         }
+        public virtual bool Go() 
+        {
+            return true;
+        }
 
         public void Begin()
         {

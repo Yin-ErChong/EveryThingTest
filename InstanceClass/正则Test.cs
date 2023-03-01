@@ -26,14 +26,22 @@ namespace EveryThingTest.InstanceClass
                 _Instance = value;
             }
         }
+        public override bool Go() 
+        {
+            return true;
+        
+        }
         public override void Start()
         {
-            string str = "{\"totalRow\":1,\"pageNumber\":1,\"data\":\"<tr>\n    <td class=\"overflow_show\">        <!--<input type=\"checkbox\" name=\"auctionId\" id=\"auction_name_549694\" value=\"549694\" class=\"select_item\">-->\n        <a href=\" / bidding / 549694\" target=\"_blank\">vbti.com</a>\n    </td>\n    <td>-</td>\n    <td>ALI_PRE</td>\n    <td>4</td>\n    <td>PR1     </td>\n    <td><span class=\"text_orange\">￥361</span></td>\n    <td><span class=\"\">1时44分</span></td>\n    <td><a href=\" / bidding / 549694\" id=\"bid_549694\" target=\"_blank\" class=\"btn btn_primary\">出价</a></td>\n</tr>\n\",\"totalPage\":1,\"pageSize\":50}";
-            string pattern = "value=\"(\\d*)\"";
-
-            foreach (Match match in Regex.Matches(str, pattern))
-                Console.WriteLine(match.Groups[1].Value);
             Console.WriteLine("It'Start");
+            string str = "background-image: url(\"blob:https://client-api.arkoselabs.com/f69add48-351a-4cf2-860e-ed43aa36f0df\"); background-position: 50% 0%; background-size: 300%;";
+            //string str = "{\"totalRow\":1,\"pageNumber\":1,\"data\":\"<tr>\n    <td class=\"overflow_show\">        <!--<input type=\"checkbox\" name=\"auctionId\" id=\"auction_name_549694\" value=\"549694\" class=\"select_item\">-->\n        <a href=\" / bidding / 549694\" target=\"_blank\">vbti.com</a>\n    </td>\n    <td>-</td>\n    <td>ALI_PRE</td>\n    <td>4</td>\n    <td>PR1     </td>\n    <td><span class=\"text_orange\">￥361</span></td>\n    <td><span class=\"\">1时44分</span></td>\n    <td><a href=\" / bidding / 549694\" id=\"bid_549694\" target=\"_blank\" class=\"btn btn_primary\">出价</a></td>\n</tr>\n\",\"totalPage\":1,\"pageSize\":50}";
+            //string pattern = "value=\"(\\d*)\"";
+
+            //foreach (Match match in Regex.Matches(str, pattern))
+            //    Console.WriteLine(match.Groups[1].Value);
+            string[] strAry = str.Split('\"');
+            Console.WriteLine(strAry[1]);
         }
         public override void End()
         {

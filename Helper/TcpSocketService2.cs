@@ -30,8 +30,31 @@ namespace EveryThingTest.Helper
             Thread myThread = new Thread(ListenClientConnect);//通过多线程监听客户端连接  
             myThread.Start();
             Console.ReadLine();
-        }
 
+
+
+        }
+        public void test(string className, string method)
+        {
+            var data = Activator.CreateInstance(Type.GetType("EveryThingTest.Helper.TcpSocketService2"));//创建一个job实例
+            var m1 = data.GetType().GetMethod("StartAsync");//提取className类内的method方法
+            m1.Invoke(data, null);//执行该方法
+        }
+        public void test(string className,string method) 
+        {
+            var data = Activator.CreateInstance(Type.GetType("EveryThingTest.Helper.TcpSocketService2"));//创建名为className的实例
+            var m1 = data.GetType().GetMethod(method);//提取className类内的method方法
+            m1.Invoke(data, null);//执行该方法
+        }
+        public TcpSocketService2 test2(string className, string method)
+        {
+            if (className== "TcpSocketService2")
+            {
+                TcpSocketService2 test = new TcpSocketService2();
+                return test;
+            }
+
+        }
         /// <summary>  
         /// 监听客户端连接  
         /// </summary>  
