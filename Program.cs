@@ -22,8 +22,8 @@ namespace EveryThingTest
             //序列化Test.Instance.Begin();
 
             //GetTest.Instance.Begin();
-            ITestBase test = 正则Test.Instance;
-            正则Test.Instance.Begin();
+            //ITestBase test = ADTest.Instance;
+            ADTest.Instance.Begin();
 
         }
     }

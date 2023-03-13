@@ -139,6 +139,7 @@
     <Compile Include="BaseClass\TestBase.cs" />
     <Compile Include="ExtensionFun\NormalExtension.cs" />
     <Compile Include="ExtensionFun\TcpFuncExtension.cs" />
+    <Compile Include="Helper\ADHelper.cs" />
     <Compile Include="Helper\BitMapHelper.cs" />
     <Compile Include="Helper\CommandHelper.cs" />
     <Compile Include="Helper\ExcelToTable.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="InstanceClass\ExcelTest.cs" />
     <Compile Include="InstanceClass\ExpressionTest.cs" />
     <Compile Include="InstanceClass\DownloadTest.cs" />
+    <Compile Include="InstanceClass\AD域相关Test.cs" />
     <Compile Include="InstanceClass\Outlook验证码破解.cs" />
     <Compile Include="InstanceClass\GetTest.cs" />
     <Compile Include="InstanceClass\PrinterTest.cs" />
